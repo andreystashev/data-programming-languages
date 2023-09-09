@@ -1,4 +1,5 @@
 import math
+import datetime
 
 
 def task_01():
@@ -28,18 +29,25 @@ def task_02():
 
 
 def task_03():
-    x = int(input("2 задание. \nВведите первое число: "))
+    x = int(input("3 задание. \nВведите первое число: "))
     y = int(input("Введите второе число: "))
     z = int(input("Введите третье число: "))
     print(round((((x ** 5 + 7) / abs(-6) * y) ** (1. / 3)) / (7 - z % y), 3))
 
 
 def task_04():
-    pass
+    x = float(input("4 задание. \nВведите первое число: "))
+    y = float(input("Введите второе число: "))
+    print(round(x + y), 1)
 
 
 def task_05():
-    pass
+    a = int(input("5 задание. \nВведите a: "))
+    b = int(input("Введите b: "))
+    m = int(input("Введите m: "))
+    n = int(input("Введите n: "))
+    x = (-b) / a
+    print(True if m <= x <= n else False)
 
 
 def task_06():
@@ -99,6 +107,7 @@ def task_12():
 
 
 def task_13():
+    print("13 задание.")
     a = list()
     b = list()
     a.append(4.5)
@@ -125,67 +134,86 @@ def task_13():
     sb = set(b)
     sa_and_sb = sa.intersection(sb)
     print("\nУникальные элементы:")
+    print("1-й: ", sa)
+    print("2-й: ", sb)
     print("общие:", sa_and_sb)
-    c = sa.union(sb)
+    c = a + b
     c_asc = sorted(c)
     c_desc = sorted(c, reverse=True)
-    # # Среднее арифметическое элементов списка 'c', расположенных на четных местах
-    # sr_ar =  sum(list(c[::2]))/len(c)//2
-    # print(sr_ar)
-    # # Среднее геометрическое элементов списка 'c', расположенных на нечетных местах
-    # sr_geom =  # Удалите комментарий и допишите код
-    #
-    # # Максимальный и минимальный элементы
+    even = list(c[1::2])
+    odd = list(c[::2])
+    sr_ar = sum(even) / len(even)
+    sr_geom = (math.sqrt(math.prod(odd))) ** (1. / (len(odd) // 2))
+    # todo По формуле среднего геометрического нужно из произведения получить корень в степени кол-ва элементов.
+    #  Но тут для правильного ответа пришлось разделить кол-во элементов(4) на 2, возводить в 2 раза меньшую степень.
     c_max = max(c)
-    c_min =  min(c)
-
-    #
-    # # Вывести результаты на экран
+    c_min = min(c)
     print("\nИтоговые:")
     print("3-й:", c)
-    print("Сортировка (возр.):" ,c_asc)
-    print("Сортировка (убыв.):",c_desc)
-    print("Ср. арифм. = ",29.00, "ср. геометр. =", 7.82)
-    print("Макс. и мин.:", c_max,c_min)
-    # # Удалите комментарий и допишите код
-    #
-    # # --------------
-    # # Пример вывода:
-    # #
-    # # Исходные списки:
-    # # 1-й: [4.5, 100, 3.4, 100, 8.7, 1.3]
-    # # 2-й: [200, 14.5, 200, 3.4, 8.7, 11.3]
-    # #
-    # # После удалений:
-    # # 1-й: [3.4, 100, 8.7, 1.3]
-    # # 2-й: [14.5, 3.4, 8.7, 11.3]
-    # #
-    # # Уникальные элементы:
-    # # 1-й: {8.7, 1.3, 3.4, 100}
-    # # 2-й: {8.7, 11.3, 3.4, 14.5}
-    # # общие: {8.7, 3.4}
-    #
-    # # Итоговые:
-    # # 3-й: [3.4, 100, 8.7, 1.3, 14.5, 3.4, 8.7, 11.3]
-    # # Сортировка (возр.): [1.3, 3.4, 3.4, 8.7, 8.7, 11.3, 14.5, 100]
-    # # Сортировка (убыв.): [100, 14.5, 11.3, 8.7, 8.7, 3.4, 3.4, 1.3]
-    # # Ср. арифм. = 29.00, ср. геометр. = 7.82
+    print("Сортировка (возр.):", c_asc)
+    print("Сортировка (убыв.):", c_desc)
+    print("Ср. арифм. = ", format(sr_ar, ".2f"), "ср. геометр. =", format(sr_geom, ".2f"))
+    print("Макс. и мин.:", c_max, c_min)
+
 
 def task_14():
-    pass
+    print("14 задание.")
+    info = dict()
+    info["фио"] = "Иванов Иван Иванович"
+    info["дата_рождения"] = "12.12.1992"
+    info["место_рождения"] = "Москва"
+    print(info)
+    info["хобби"] = ["плавание", "йога", "футбол"]
+    info["хобби"].append("программирование")
+    info["животные"] = ("кошка мурка", "собака лайка")
+    info["ЕГЭ"] = dict()
+    info["ЕГЭ"]["математика"] = 20
+    info["ЕГЭ"]["информатика"] = 20
+    info["ЕГЭ"]["русский"] = 0
+    info["ЕГЭ"].pop("русский")
+    info["вузы"] = dict()
+    info["вузы"]["МИСИС"] = 40
+    info["вузы"]["МФТИ"] = 50
+    print("Данные:")
+    print(info)
+    exams = tuple(sorted(info["ЕГЭ"].keys()))
+    print("Предметы:", *exams)
+    uni = sorted(info["вузы"].keys())
+    print("Вузы:", *uni)
+    print("\nОтветы на вопросы:")
+    name = info["фио"].split()[1]
+    starts_with_vowel = name[0].lower() in "аоуыэяёюие"
+    print("* мое имя начинается на гласную букву:", starts_with_vowel)
+    date_time_obj = datetime.datetime.strptime(info["дата_рождения"], '%d.%m.%Y')
+    month = date_time_obj.month
+    born_in_winter_or_summer = True if month in [12, 1, 2, 6, 7, 8] else False
+    print("* родился летом или зимой:", born_in_winter_or_summer)
+    hobbies_count = len(info['хобби'])
+    print("* у меня {} хобби, первое \"{}\"".format(hobbies_count, info['хобби'][0]))
+    exams_count = len(info['ЕГЭ'])
+    print("* после окончания школы сдавал {} экз.".format(exams_count))
+    sum_mark = sum(info['ЕГЭ'].values())
+    print("* сумма баллов = {}".format(sum_mark))
+    max_mark = max(info['ЕГЭ'].values())
+    print("* макс. балл = {}".format(max_mark))
+    vuz_count = 0
+    for value in info["вузы"].values():
+        if sum_mark >= value:
+            vuz_count += 1
+    print("* кол-во вузов в которые прохожу: {}".format(vuz_count))
 
 
-# task_01()
-# task_02()
-# task_03()
-# task_04()
-# task_05()
-# task_06()
-# task_07()
-# task_08()
-# task_09()
-# task_10()
-# task_11()
-# task_12()
+task_01()
+task_02()
+task_03()
+task_04()
+task_05()
+task_06()
+task_07()
+task_08()
+task_09()
+task_10()
+task_11()
+task_12()
 task_13()
-# task_14()
+task_14()

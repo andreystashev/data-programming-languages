@@ -2,7 +2,28 @@ import datetime
 
 
 def task_01():
-    pass
+    massive = [12, 9]
+    minimum = min(massive)
+    while minimum > 0:
+        nok = True
+        for i in massive:
+            if i / minimum != i // minimum:
+                nok = False
+        if nok:
+            print(minimum, "НОК")
+            break
+        minimum -= 1
+
+    maximum = max(massive)
+    while True:
+        nod = True
+        for i in massive:
+            if maximum % i != 0:
+                nod = False
+        if nod:
+            print(maximum, "НОД")
+            break
+        maximum += 1
 
 
 def task_02():
@@ -64,7 +85,16 @@ def task_05():
 
 
 def task_06():
-    pass
+    def foo(*nums):
+        minus, plus = list(), list()
+        for i in sorted(nums):
+            if i < 0:
+                minus.append(i)
+            else:
+                plus.append(i)
+        return minus, plus
+
+    print(foo(1, 2, 3, 4, 5, -1, -4, -5))
 
 
 def task_07():
@@ -100,7 +130,6 @@ def task_09():
 
 
 def task_10():
-
     def magic_check(day: int, month: int, year: int):
         return day * month == year % 100
 
@@ -117,4 +146,4 @@ def task_10():
                     print(f"{counter})", date.strftime("%d.%m.%Y"))
 
 
-task_02()
+task_06()

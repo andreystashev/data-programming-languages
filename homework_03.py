@@ -126,7 +126,47 @@ def task_08():
 
 
 def task_09():
-    pass
+    converter = {1: "1", 2: "2", 3: "3", 4: "4", 5: "5", 6: "6", 7: "7", 8: "8", 9: "9", 10: "A", 11: "B", 12: "C",
+                 13: "D", 14: "E", 15: "F"}
+
+    def from_ten(number, system):
+        result = ""
+        while number > 0:
+            result += converter[number % system]
+            number //= system
+        return result[::-1]
+
+    def to_ten(number, system):
+        number = number[::-1]
+        result = 0
+        mult = 0
+        for char in number:
+            for key, value in converter.items():
+                if char == value:
+                    result += (key * pow(system, mult))
+                    break
+            mult += 1
+        return result
+
+    while True:
+        print("Поддерживаются системы счисления не больше 16 и не меньше 2")
+        system_from = int(input("Какая исходная система счисления? :"))
+        system_to = int(input("В какую переводим? :"))
+        if 1 < system_from < 17 and 1 < system_to < 17:
+            break
+
+    while True:
+        num = input("Какое число? :")
+        is_correct = True
+        for i in num:
+            for key, value in converter.items():
+                if value == i and key > system_from:
+                    is_correct = False
+                    print("Число содержит символы, отсутствующие в выбранной системе счисления")
+        if is_correct:
+            break
+
+    print("Результат:", from_ten(to_ten(num, system_from), system_to))
 
 
 def task_10():
@@ -146,4 +186,13 @@ def task_10():
                     print(f"{counter})", date.strftime("%d.%m.%Y"))
 
 
+task_01()
+task_02()
+task_03()
+task_04()
+task_05()
 task_06()
+task_07()
+task_08()
+task_09()
+task_10()

@@ -51,8 +51,8 @@ def task_04():
     line = input("Введите строку: ").lower()
     statistic = dict()
     for char in line:
-        if char not in statistic.keys():
-            statistic[char] = 1
+        if char not in statistic.keys():  # можно просто написать "if char not in statistic". # Питон по дефолту смотрит в ключи
+            statistic[char] = 1  # можно не делать ветвление, а заюзать метод .setdefault()
         else:
             statistic[char] += 1
     for key, value in statistic.items():
@@ -87,7 +87,7 @@ def task_05():
 def task_06():
     def foo(*nums):
         minus, plus = list(), list()
-        for i in sorted(nums):
+        for i in sorted(nums):  # по условию только неотрицательные сортируются по возрастанию
             if i < 0:
                 minus.append(i)
             else:
@@ -100,7 +100,7 @@ def task_06():
 def task_07():
     line = input("Введите строку: ")
     for i in range(len(line) // 2):
-        if line[i] != line[len(line) - 1 - i]:
+        if line[i] != line[len(line) - 1 - i]:  # можно убрать len(line). Сработает обратная идексация
             print("Не палиндром")
             break
     else:

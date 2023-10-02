@@ -1,5 +1,6 @@
 import time
 
+
 # Упражнение 1.
 
 
@@ -17,6 +18,7 @@ class Point:
     def get_y(self):
         return self.y
 
+
 # Упражнение 2.
 
 
@@ -30,7 +32,7 @@ class Rectangle:
         return self.width * self.height
 
     def get_p(self):
-        return (self.width + self.height)*2
+        return (self.width + self.height) * 2
 
     def contains(self, point):  # Упражнение 3.
         return True if self.x1 <= point.get_x() <= self.x2 and self.y1 <= point.get_y() <= self.y2 else False
@@ -41,6 +43,8 @@ p2 = Point(4, 4)
 p3 = Point(2, 5)
 
 rect = Rectangle(p1, p2)
+
+
 # print(rect.get_p(), rect.get_s())
 # print(rect.contains(p3))
 
@@ -61,6 +65,7 @@ class Counter:
 
     def get_counter(self):
         return self.counter
+
 
 # Упражнение 5.
 
@@ -88,7 +93,7 @@ class Watch:
             self.add_minute()
             self.second -= 60
 
-    def __add__(self, other):   # Упражнение 6.
+    def __add__(self, other):  # Упражнение 6.
         self.second += other.second
         if self.second > 59:
             self.second -= 60
@@ -109,7 +114,7 @@ w = Watch(11, 59, 20)
 w.info()
 w2 = Watch(12, 1, 50)
 
-w+w2
+w + w2
 w.info()
 
 
@@ -151,73 +156,95 @@ def task_07():
         time.sleep(1)
         cow.live(field)
 
+
 # task_07()
 
 
 class Storm:
-    def __init__(self):
+    def info(self):
         print("Storm")
 
 
 class Dust:
-    def __init__(self):
+    def info(self):
         print("Dust")
 
 
 class Lightning:
-    def __init__(self):
+    def info(self):
         print("Lightning")
 
 
 class Lava:
-    def __init__(self):
+    def info(self):
         print("Lava")
 
 
 class Mud:
-    def __init__(self):
+    def info(self):
         print("Mud")
 
 
 class Steam:
-    def __init__(self):
+    def info(self):
         print("Steam")
 
 
-
 class Earth:
-    def __init__(self):
+    def info(self):
         print("Earth")
 
     def __add__(self, other):
-        # print("add work",other)
-        # return Lava()
-        if other is Fire:
-            print("Fire")
-        #     return Lava()
-        # if other == Water:
-        #     return Mud()
-
-
+        if type(other) is Fire:
+            return Lava()
+        elif type(other) == Water:
+            return Mud()
+        elif type(other) is Air:
+            return Dust()
 
 
 class Fire:
-    def __init__(self):
+    def info(self):
         print("Fire")
+
+    def __add__(self, other):
+        if type(other) is Earth:
+            return Lava()
+        elif type(other) == Water:
+            return Steam()
+        elif type(other) is Air:
+            return Lightning()
 
 
 class Water:
-    def __init__(self):
+    def info(self):
         print("Water")
+
+    def __add__(self, other):
+        if type(other) is Earth:
+            return Mud()
+        elif type(other) == Fire:
+            return Steam()
+        elif type(other) is Air:
+            return Storm()
 
 
 class Air:
-    def __init__(self):
+    def info(self):
         print("Air")
+
+    def __add__(self, other):
+        if type(other) is Earth:
+            return Dust()
+        elif type(other) == Fire:
+            return Lightning()
+        elif type(other) is Water:
+            return Storm()
+
 
 e = Earth()
 f = Fire()
 w = Water()
-
-print(e+f)
-print(e+w)
+a = Air()
+s = w + a
+s.info()

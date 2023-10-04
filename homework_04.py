@@ -206,7 +206,6 @@ class Earth:
             return Dust()
 
 
-
 class Fire:
     def info(self):
         print("Fire")
@@ -220,7 +219,6 @@ class Fire:
             return Lightning()
 
 
-
 class Water:
     def info(self):
         print("Water")
@@ -232,7 +230,6 @@ class Water:
             return Steam()
         elif type(other) is Air:
             return Storm()
-
 
 
 class Air:
@@ -255,6 +252,7 @@ class FifthElement:
     def __add__(self, other):
         return self
 
+
 def task_08():
     e = Earth()
     f = Fire()
@@ -266,28 +264,32 @@ def task_08():
     if s != None:
         s.info()
 
+
 # task_08()
 
 
+# Упражнение 9.
+
+
 class NoMoneyToWithdrawError(Exception):
-   def __init__(self, message):
-       super().__init__(message)
+    def __init__(self, message):
+        super().__init__(message)
 
 
 class PaymentError(Exception):
-   def __init__(self, message):
-       super().__init__(message)
+    def __init__(self, message):
+        super().__init__(message)
 
 
 def print_accounts(accounts):
-   """Печать аккаунтов."""
-   print("Список клиентов ({}): ".format(len(accounts)))
-   for i, (name, value) in enumerate(accounts.items(), start=1):
-       print("{}. {} {}".format(i, name, value))
+    """Печать аккаунтов."""
+    print("Список клиентов ({}): ".format(len(accounts)))
+    for i, (name, value) in enumerate(accounts.items(), start=1):
+        print("{}. {} {}".format(i, name, value))
 
 
 def transfer_money(accounts, account_from, account_to, value):
-   """Выполнить перевод 'value' денег со счета 'account_from' на 'account_to'.
+    """Выполнить перевод 'value' денег со счета 'account_from' на 'account_to'.
 
    При переводе денежных средств необходимо учитывать:
        - хватает ли денег на счету, с которого осуществляется перевод;
@@ -302,32 +304,53 @@ def transfer_money(accounts, account_from, account_to, value):
                                  не хватает денег для перевода;
        - PaymentError: ошибка при переводе.
    """
-   # Удалите комментарий и допишите код
+    debtor = accounts[account_from]
+    creditor = accounts[account_to]
+
+    try:
+        accounts[account_from] -= value
+        accounts[account_to] += value
+        if accounts[account_from] < 0:
+            raise NoMoneyToWithdrawError(f'на счету {account_from} не хватает денег для перевода')
+        print(accounts[account_from], debtor, accounts[account_to], creditor, "creditor")
+        if accounts[account_from] != debtor - value or accounts[account_to] != creditor + value:
+            raise PaymentError("ошибка при переводе")
+
+    except Exception:
+        accounts[account_from] = debtor
+        accounts[account_to] = creditor
+        print("Перевод был отменен")
 
 
+#
+#
 if __name__ == "__main__":
-   accounts = {
-       "Василий Иванов": 100,
-       "Екатерина Белых": 1500,
-       "Михаил Лермонтов": 400
-   }
-   print_accounts(accounts)
+    accounts = {
+        "Василий Иванов": 100,
+        "Екатерина Белых": 1500,
+        "Михаил Лермонтов": 400
+    }
+    print_accounts(accounts)
 
-   payment_info = {
-       "account_from": "Екатерина Белых",
-       "account_to": "Василий Иванов"
-   }
+    payment_info = {
+        "account_from": "Екатерина Белых",
+        "account_to": "Василий Иванов"
+    }
 
-   print("Перевод от {account_from} для {account_to}...".
-         format(**payment_info))
+    print("Перевод от {account_from} для {account_to}...".
+          format(**payment_info))
 
-   payment_info["value"] = int(input("Сумма = "))
+    payment_info["value"] = int(input("Сумма = "))
 
-   transfer_money(accounts, **payment_info)
+    transfer_money(accounts, **payment_info)
 
-   print("OK!")
+    print("OK!")
 
-   print_accounts(accounts)
+    print_accounts(accounts)
+
+
+# Упражнение 10.
+
 
 def task_10():
     summ = 0.
@@ -341,3 +364,28 @@ def task_10():
             break
         else:
             print("Это не число.")
+
+# task_10()
+
+
+# Упражнение 11.
+
+
+def task_11():
+    grades = {"A": 5, "B": 4, "C": 4, "D": 4, "E": 3, "P": 2}
+    while True:
+        num = input("Введите число: ")
+        if num.isdigit() and int(num) in grades.values():
+            for k, v in grades.items():
+                if v == int(num):
+                    print(k)
+                    break
+        elif num.upper() in grades.keys():
+            print(grades[num.upper()])
+        elif num == "":
+            print("Выходим")
+            break
+        else:
+            print("Введенное значение не является допустимым")
+
+# task_11()

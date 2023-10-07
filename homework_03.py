@@ -51,10 +51,8 @@ def task_04():
     line = input("Введите строку: ").lower()
     statistic = dict()
     for char in line:
-        if char not in statistic.keys():  # можно просто написать "if char not in statistic". # Питон по дефолту смотрит в ключи
-            statistic[char] = 1  # можно не делать ветвление, а заюзать метод .setdefault()
-        else:
-            statistic[char] += 1
+        statistic.setdefault(char, 0)
+        statistic[char] += 1
     for key, value in statistic.items():
         print(f"'{key}'", "=", value)
 
@@ -87,20 +85,21 @@ def task_05():
 def task_06():
     def foo(*nums):
         minus, plus = list(), list()
-        for i in sorted(nums):  # по условию только неотрицательные сортируются по возрастанию
+        for i in sorted(nums):
             if i < 0:
                 minus.append(i)
             else:
                 plus.append(i)
+        minus.sort(reverse=True)
         return minus, plus
 
-    print(foo(1, 2, 3, 4, 5, -1, -4, -5))
+    print(foo(1, 2, 3, 4, 5, 0, -1, -4, -5))
 
 
 def task_07():
     line = input("Введите строку: ")
     for i in range(len(line) // 2):
-        if line[i] != line[len(line) - 1 - i]:  # можно убрать len(line). Сработает обратная идексация
+        if line[i] != line[- 1 - i]:
             print("Не палиндром")
             break
     else:
@@ -186,13 +185,13 @@ def task_10():
                     print(f"{counter})", date.strftime("%d.%m.%Y"))
 
 
-task_01()
-task_02()
-task_03()
-task_04()
-task_05()
-task_06()
-task_07()
-task_08()
-task_09()
-task_10()
+# task_01()
+# task_02()
+# task_03()
+# task_04()
+# task_05()
+# task_06()
+# task_07()
+# task_08()
+# task_09()
+# task_10()
